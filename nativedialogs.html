@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Native Dialogs</title>
+        <meta name="author" content="Rita Abraham">
+        <meta name="description" content="For buttons">
+        <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    </head>
+    <body>
+        <h1>Simple Dialogs?</h1>
+        <button id="alert">Alert</button>
+        <button id="confirm">Confirm</button>
+        <button id="prompt">Prompt</button>
+        <button id="safer_prompt">Safer Prompt</button>
+        <hr>
+        <output id="output"></output>
+    </body>
+    <script type="text/javascript" src="src/purify.js"></script>
+    <script>
+        let alert_button = document.getElementById("alert");
+        let confirm_button = document.getElementById("confirm");
+        let prompt_button = document.getElementById("prompt");
+        let safer_prompt_button = document.getElementById("safer_prompt");
+        let output = document.getElementById("output");
+        alert_button.addEventListener('click', (event) => {
+            alert("This is an alert");
+        });
+        confirm_button.addEventListener('click', (event) => {
+            let clean_confirmed = DOMPurify.sanitize(confirm("Do you confirm this?"));
+            output.textContent = `The value returned by the confirm method is: ${clean_confirmed}`;
+        });
+        prompt_button.addEventListener('click', (event) => {
+            output.textContent = '';
+            setTimeout(() => {
+                let clean_text = DOMPurify.sanitize(prompt("What is your name?"));
+                if(clean_text == null || clean_text == ''){
+                    clean_text = "User didn’t enter anything";
+                }
+                output.textContent = `The value returned by the prompt method is: ${clean_text}`;
+            }, 0);
+        });
+        safer_prompt_button.addEventListener('click', (event) => {
+            let clean_text = DOMPurify.sanitize(prompt("What is your name?"));
+            if(clean_text == null || clean_text == ''){
+                clean_text = "User didn’t enter anything";
+            }
+            output.textContent = `The value returned by the prompt method is: ${clean_text}`;
+        });
+    </script>
+</html>
