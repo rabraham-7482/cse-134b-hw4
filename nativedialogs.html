@@ -26,13 +26,13 @@
             alert("This is an alert");
         });
         confirm_button.addEventListener('click', (event) => {
-            let clean_confirmed = DOMPurify.sanitize(confirm("Do you confirm this?"));
+            let clean_confirmed = confirm("Do you confirm this?");
             output.textContent = `The value returned by the confirm method is: ${clean_confirmed}`;
         });
         prompt_button.addEventListener('click', (event) => {
             output.textContent = '';
             setTimeout(() => {
-                let clean_text = DOMPurify.sanitize(prompt("What is your name?"));
+                let clean_text = prompt("What is your name?");
                 if(clean_text == null || clean_text == ''){
                     clean_text = "User didn’t enter anything";
                 }
@@ -40,7 +40,7 @@
             }, 0);
         });
         safer_prompt_button.addEventListener('click', (event) => {
-            let clean_text = DOMPurify.sanitize(prompt("What is your name?"));
+            let clean_text = prompt("What is your name?");
             if(clean_text == null || clean_text == ''){
                 clean_text = "User didn’t enter anything";
             }
