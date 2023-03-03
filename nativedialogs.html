@@ -15,7 +15,7 @@
         <hr>
         <output id="output"></output>
     </body>
-    <script type="text/javascript" src="./node_modules/dompurify/dist/purify.js"></script>
+    <script type="text/javascript" src="./purify.js"></script>
     <script>
         let alert_button = document.getElementById("alert");
         let confirm_button = document.getElementById("confirm");
@@ -55,7 +55,6 @@
                 }
                 output.innerHTML = `The value returned by the prompt method is: ${clean_text}`;
             }, 1);
-            
         });
     </script>
 </html>
