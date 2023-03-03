@@ -1,4 +1,3 @@
-// window.addEventListener('DOMContentLoaded', init);
 export function init(){
     let posts = getPostsFromStorage();
     initAddPosts(posts);
