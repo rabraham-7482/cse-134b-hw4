@@ -31,8 +31,8 @@ h1{
 nav {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
     gap: 0px;
 }
 h3{
@@ -60,6 +60,9 @@ a:hover{
     text-decoration: underline;
 }
 section{
+    position: absolute;
+    top: 15%;
+    right: 25%;
     background-color: rgba(77, 160, 150, 0.33);
     width: 50vw;
     height: 75vh;
@@ -72,4 +75,8 @@ button{
 }
 button:active{
     transform: scale(0.95);
+}
+#close_button {
+    position: relative;
+    left: 48vw;
 }

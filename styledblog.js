@@ -1,5 +1,5 @@
-window.addEventListener('DOMContentLoaded', init);
-function init(){
+// window.addEventListener('DOMContentLoaded', init);
+export function init(){
     let posts = getPostsFromStorage();
     initAddPosts(posts);
     let add_post_button = document.getElementById("add_post_btn");
@@ -10,11 +10,14 @@ function init(){
 }
 function showAddEditDialog(){
     let dialog_element = document.getElementById("add_post_dialog");
-    dialog_element.style = "display: flex;flex-direction: column;gap: 10px;";
+    dialog_element.setAttribute('style', `display: flex; flex-direction: column; gap: 5px;`);
+    // dialog_element.style = `"display: flex; flex-direction: column; gap: 5px;"`;
     dialog_element.open = true;
 }
 function closeAddEditDialog(){
     let dialog_element = document.getElementById("add_post_dialog");
+    // dialog_element.style = ``;
+    dialog_element.setAttribute('style', ``)
     dialog_element.open = false;
 }
 function handleAddDialog(){
@@ -35,7 +38,7 @@ function handleAddDialog(){
     });
 }
 function getPostsFromStorage(){
-    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    let posts = JSON.parse(localStorage.getItem("styled_posts")) || [];
     return posts;
 }
 function addPostToLocalStorage(post_title, post_description, post_date){
@@ -45,7 +48,7 @@ function addPostToLocalStorage(post_title, post_description, post_date){
         description: post_description,
         date: post_date
     });
-    localStorage.setItem("posts", JSON.stringify(posts_list));
+    localStorage.setItem("styled_posts", JSON.stringify(posts_list));
     return;
 }
 function initAddPosts(post_list){
@@ -54,18 +57,13 @@ function initAddPosts(post_list){
     post_list.forEach((post) => {
         let post_element = document.createElement("div");
         post_element.setAttribute("id", `post_${index}`);
-        post_element.setAttribute("style", "background_color: #e3cc9f;");
         post_element.innerHTML = `
             <h3 id="post_title_${index}">Post Title: ${post.title}</h3>
             <h4 id="post_date_${index}">Date: ${post.date}</h4>
             <p>Post Description:</p>
             <p id="post_description_${index}">${post.description}</p>
-            <button id="edit_button" onclick="editPost(this)">
-                <img src="./pencil_icon.png" alt="pencil_icon" height="20" width="20"/>
-            </button>
-            <button id="delete_button" onclick="deletePost(this)">
-                <img src="./trash_icon.png" alt="trash_icon" height="20" width="20"/>
-            </button>
+            <button id="edit_button" onclick="editPost(this)">Edit</button>
+            <button id="delete_button" onclick="deletePost(this)">Delete</button>
             <hr>
         `;
         index += 1;
@@ -81,7 +79,7 @@ function closeDeleteDialog(){
     let delete_dialog = document.getElementById("delete_post_dialog");
     delete_dialog.open = false;
 }
-function deletePost(delete_button_element){
+export function deletePost(delete_button_element){
     showDeleteDialog();
     let delete_button = document.getElementById("dialog_delete_button");
     let cancel_button = document.getElementById("dialog_cancel_delete_button");
@@ -90,7 +88,8 @@ function deletePost(delete_button_element){
         let parent_id = delete_button_element.parentNode.id;
         let post_index = parseInt(parent_id.split("_")[1])-1;
         post_list.splice(post_index, 1);
-        localStorage.setItem("posts", JSON.stringify(post_list));
+        localStorage.setItem("styled_posts", JSON.stringify(post_list));
+        closeDeleteDialog();
         window.location.reload();
         return;
     });
@@ -119,13 +118,13 @@ function handleEditDialog(post_list, post_index, post){
             description: input_desription_value.value,
             date: new_date
         };
-        localStorage.setItem("posts", JSON.stringify(post_list));
+        localStorage.setItem("styled_posts", JSON.stringify(post_list));
         closeAddEditDialog();
         window.location.reload();
         return;
     });
 }
-function editPost(edit_button_element){
+export function editPost(edit_button_element){
     let post_list = getPostsFromStorage();
     let parent = edit_button_element.parentNode;
     let parent_id = parent.id;

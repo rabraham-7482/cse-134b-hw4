@@ -1,5 +1,5 @@
-window.addEventListener('DOMContentLoaded', init);
-function init(){
+// window.addEventListener('DOMContentLoaded', init);
+export function init(){
     let posts = getPostsFromStorage();
     initAddPosts(posts);
     let add_post_button = document.getElementById("add_post_btn");
@@ -34,7 +34,7 @@ function handleAddDialog(){
     });
 }
 function getPostsFromStorage(){
-    let posts = JSON.parse(localStorage.getItem("posts")) || [];
+    let posts = JSON.parse(localStorage.getItem("old_posts")) || [];
     return posts;
 }
 function addPostToLocalStorage(post_title, post_description, post_date){
@@ -44,7 +44,7 @@ function addPostToLocalStorage(post_title, post_description, post_date){
         description: post_description,
         date: post_date
     });
-    localStorage.setItem("posts", JSON.stringify(posts_list));
+    localStorage.setItem("old_posts", JSON.stringify(posts_list));
     return;
 }
 function initAddPosts(post_list){
@@ -75,7 +75,7 @@ function closeDeleteDialog(){
     let delete_dialog = document.getElementById("delete_post_dialog");
     delete_dialog.open = false;
 }
-function deletePost(delete_button_element){
+export function deletePost(delete_button_element){
     showDeleteDialog();
     let delete_button = document.getElementById("dialog_delete_button");
     let cancel_button = document.getElementById("dialog_cancel_delete_button");
@@ -84,13 +84,14 @@ function deletePost(delete_button_element){
         let parent_id = delete_button_element.parentNode.id;
         let post_index = parseInt(parent_id.split("_")[1])-1;
         post_list.splice(post_index, 1);
-        localStorage.setItem("posts", JSON.stringify(post_list));
-        // closeDeleteDialog();
+        localStorage.setItem("old_posts", JSON.stringify(post_list));
+        closeDeleteDialog();
         window.location.reload();
         return;
     });
     cancel_button.addEventListener('click', (event) => {
         closeDeleteDialog();
+        window.location.reload();
         return;
     });
     
@@ -114,13 +115,13 @@ function handleEditDialog(post_list, post_index, post){
             description: input_desription_value.value,
             date: new_date
         };
-        localStorage.setItem("posts", JSON.stringify(post_list));
+        localStorage.setItem("old_posts", JSON.stringify(post_list));
         closeAddEditDialog();
         window.location.reload();
         return;
     });
 }
-function editPost(edit_button_element){
+export function editPost(edit_button_element){
     let post_list = getPostsFromStorage();
     let parent = edit_button_element.parentNode;
     let parent_id = parent.id;

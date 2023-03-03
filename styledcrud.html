@@ -5,7 +5,7 @@
         <meta name="author" content="Rita Abraham">
         <meta name="description" content="crud application">
         <link rel="icon" href="./favicon.ico" type="image/x-icon">
-        <script src="./styledblog.js"></script>
+        <!-- <script src="./styledblog.js"></script> -->
     </head>
     <body style="background-color: #eee5d3">
         <section id="posts">
@@ -29,4 +29,10 @@
             </dialog>
         </section>
     </body>
+    <script type="module">
+        import {init, editPost, deletePost} from './styledblog.js';
+        window.editPost = editPost;
+        window.deletePost = deletePost;
+        init();
+    </script>
 </html>

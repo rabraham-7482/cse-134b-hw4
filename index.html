@@ -13,37 +13,37 @@
             <hr>
             <nav>
                 <h2>
-                    <a id="flex_item" href="#about_me">
+                    <a id="flex_item" onclick='openSection("about_me")'>
                         About Me
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#education">
+                    <a id="flex_item" onclick='openSection("education")'>
                         Education
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#experience">
+                    <a id="flex_item" onclick='openSection("experience")'>
                         Experience
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#extracirriculars">
+                    <a id="flex_item" onclick='openSection("extracirriculars")'>
                         Extracirriculars
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#goals">
+                    <a id="flex_item" onclick='openSection("goals")'>
                         Goals
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#contact_me">
+                    <a id="flex_item" onclick='openSection("contact_me")'>
                         Contact Me
                     </a>
                 </h2>
                 <h2>
-                    <a id="flex_item" href="#fun_facts">
+                    <a id="flex_item" onclick='openSection("fun_facts")'>
                         Fun Facts
                     </a>
                 </h2>
@@ -51,7 +51,8 @@
         </main>
         <br>
         <br>
-        <section id="about_me">
+        <section id="about_me" hidden>
+            <button id="close_button" onclick='closeSection("about_me")'>X</button>
             <header>
                 <h3>About Me</h3>
             </header>
@@ -65,11 +66,12 @@
         </section>
         <br>
         <br>
-        <section id="education">
+        <section id="education" hidden>
+            <button id="close_button" onclick='closeSection("education")'>X</button>
             <header>
                 <h3>Education</h3>
             </header>
-            <button>
+            <button onclick="showTable('dougherty_table')">
                 <picture>
                     <source type="image/jpg" srcset="./dougherty_logo.jpg">
                     <source type="image/avif" srcset="./dougherty_logo.avif">
@@ -78,8 +80,7 @@
                 </picture>
             </button>
             <br>
-            <template>
-                <table>
+                <table id="dougherty_table" hidden>
                     <caption><b>School Deatils</b></caption>
                     <colgroup>
                         <col span="2">
@@ -97,8 +98,7 @@
                       <td>June 2019</td>
                     </tr>
                   </table>
-            </template>
-            <button>
+            <button onclick='showTable("ucsd_table")'>
                 <picture>
                     <source type="image/jpg" srcset="./ucsd_logo.jpg">
                     <source type="image/avif" srcset="./ucsd_logo.avif">
@@ -106,8 +106,7 @@
                     <img src="./ucsd_logo.png" alt="DVHS logo" height="200" width="200"/>
                 </picture>
             </button>
-            <template>
-                <table>
+                <table id="ucsd_table" hidden>
                     <caption><b>School Deatils</b></caption>
                     <colgroup>
                         <col span="2">
@@ -133,11 +132,11 @@
                       <td>March 2023</td>
                     </tr>
                   </table>
-            </template>
         </section>
         <br>
         <br>
-        <section id="experience">
+        <section id="experience" hidden>
+            <button id="close_button" onclick='closeSection("experience")'>X</button>
             <header>
                 <h3>Experience</h3>
             </header>
@@ -180,7 +179,8 @@
         </section>
         <br>
         <br>
-        <section id="extracirriculars">
+        <section id="extracirriculars" hidden>
+            <button id="close_button" onclick='closeSection("extracirriculars")'>X</button>
             <header>
                 <h3>Extracirriculars</h3>
             </header>
@@ -198,7 +198,8 @@
         </section>
         <br>
         <br>
-        <section id="goals">
+        <section id="goals" hidden>
+            <button id="close_button" onclick='closeSection("goals")'>X</button>
             <header>
                 <h3>Goals</h3>
             </header>
@@ -211,7 +212,8 @@
         </section>
         <br>
         <br>
-        <section id="contact_me">
+        <section id="contact_me" hidden>
+            <button id="close_button" onclick='closeSection("contact_me")'>X</button>
             <header>
                 <h3>Contact Me</h3>
             </header>
@@ -254,7 +256,8 @@
         </section>
         <br>
         <br>
-        <section id="fun_facts">
+        <section id="fun_facts" hidden>
+            <button id="close_button" onclick='closeSection("fun_facts")'>X</button>
             <header>
                 <h3>Fun Facts</h3>
             </header>
@@ -323,4 +326,55 @@ From the album, Low is my favorite.</p>
              <p>This page was made with &hearts; by Rita Abraham</p>
         </footer>
     </body>
+    <script>
+        let isOpen = false;
+        let dougherty_table_isopen = false;
+        let ucsd_table_isopen = false;
+        function openSection(section_id){
+            if(isOpen){
+                alert("Please close open section first!");
+            }
+            else{
+                let element = document.getElementById(section_id);
+                element.hidden = false;
+                isOpen = true;
+            }
+        }
+        function closeSection(section_id){
+            if(section_id === "education"){
+                let dougherty_table = document.getElementById("dougherty_table");
+                dougherty_table.hidden = true;
+                let ucsd_table = document.getElementById("ucsd_table");
+                ucsd_table.hidden = true;
+                dougherty_table_isopen = false;
+                ucsd_table_isopen = false;
+            }
+            let element = document.getElementById(section_id);
+            element.hidden = true;
+            isOpen = false;
+        }
+        function showTable(table_id){
+            let element = document.getElementById(table_id);
+            if(table_id === "dougherty_table"){
+                if(dougherty_table_isopen){
+                    element.hidden = true;
+                    dougherty_table_isopen = false;
+                }
+                else{
+                    element.hidden = false;
+                    dougherty_table_isopen = true;
+                }
+            }
+            else{
+                if(ucsd_table_isopen){
+                    element.hidden = true;
+                    ucsd_table_isopen = false;
+                }
+                else{
+                    element.hidden = false;
+                    ucsd_table_isopen = true;
+                }
+            }
+        }
+    </script>
 </html>

@@ -15,7 +15,7 @@
         <hr>
         <output id="output"></output>
     </body>
-    <script type="text/javascript" src="src/purify.js"></script>
+    <script type="text/javascript" src="./node_modules/dompurify/dist/purify.js"></script>
     <script>
         let alert_button = document.getElementById("alert");
         let confirm_button = document.getElementById("confirm");
@@ -23,28 +23,39 @@
         let safer_prompt_button = document.getElementById("safer_prompt");
         let output = document.getElementById("output");
         alert_button.addEventListener('click', (event) => {
-            alert("This is an alert");
+            setTimeout(() => {
+                alert("This is an alert");
+            }, 0);
         });
         confirm_button.addEventListener('click', (event) => {
-            let clean_confirmed = confirm("Do you confirm this?");
-            output.textContent = `The value returned by the confirm method is: ${clean_confirmed}`;
+            output.innerHTML = ``;
+            setTimeout(() => {
+                let clean_confirmed = confirm("Do you confirm this?");
+                output.innerHTML = `The value returned by the confirm method is: ${clean_confirmed}`;
+            }, 1);
         });
         prompt_button.addEventListener('click', (event) => {
-            output.textContent = '';
+            output.innerHTML = ``;
             setTimeout(() => {
                 let clean_text = prompt("What is your name?");
                 if(clean_text == null || clean_text == ''){
                     clean_text = "User didn’t enter anything";
                 }
-                output.textContent = `The value returned by the prompt method is: ${clean_text}`;
-            }, 0);
+                output.innerHTML = `The value returned by the prompt method is: ${clean_text}`;
+            }, 1);
+            
         });
         safer_prompt_button.addEventListener('click', (event) => {
-            let clean_text = prompt("What is your name?");
-            if(clean_text == null || clean_text == ''){
-                clean_text = "User didn’t enter anything";
-            }
-            output.textContent = `The value returned by the prompt method is: ${clean_text}`;
+            output.innerHTML = ``;
+            setTimeout(() => {
+                let input_text = prompt("What is your name?");
+                let clean_text = DOMPurify.sanitize(input_text);
+                if(clean_text == null || clean_text == ''){
+                    clean_text = "User didn’t enter anything";
+                }
+                output.innerHTML = `The value returned by the prompt method is: ${clean_text}`;
+            }, 1);
+            
         });
     </script>
 </html>
